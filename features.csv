@@ -1,0 +1,139 @@
+feature,area,priority,original,clone,notes
+Sign up with email and create a company account,onboarding,must,yes,no,14-day trial with no card on the original
+Company info: name logo currency time zone,onboarding,must,yes,no,Settings > General
+Setup checklist after sign up,onboarding,could,yes,no,help: the account set-up checklist
+Import products from CSV,onboarding,should,yes,no,help: importing your data
+Import customers from CSV,onboarding,could,yes,no,
+Staff users with separate logins,team,should,yes,no,Start plan has 1 user; Grow +5; Scale +10
+User permissions (revert orders cancel orders manage stock),team,should,yes,no,API permissions cancel_orders and revert_orders
+Rental product tracked individually (stock items with identifiers),inventory,must,yes,no,tracking_type trackable; cannot change after create
+Rental product tracked in quantities (bulk),inventory,must,yes,no,tracking_type bulk
+Service products (optional extras toggled in cart),inventory,should,yes,no,product_type service; untracked
+Sales items (sold not returned),inventory,should,yes,no,product_type sales_item; fixed price only
+Custom one-off lines on an order (incl. negative amounts),orders,must,yes,no,line_type charge
+Product name SKU description images (up to 3),inventory,must,yes,no,
+Product variations by property (size colour),inventory,should,yes,no,cannot be undone once enabled
+Bundles with contents quantities and per-item discount,inventory,should,yes,no,availability = least available content; Any variation option
+Collections to group products in the store,storefront,must,yes,no,shown as sidebar on booking page
+Tags on products orders customers,inventory,could,yes,no,
+Custom fields on products orders customers,inventory,should,yes,no,Properties resource; also used at checkout
+Add regular stock with purchase cost and date,inventory,must,yes,no,cost feeds ROI reports
+Expected stock (available from a future date),inventory,should,yes,no,
+Temporary stock for sub-rentals (available from/till),inventory,should,yes,no,TMP- prefix on identifiers
+Stock item status (in stock out overdue expected expired in downtime),inventory,must,yes,no,green/orange dots in inventory panel
+Delete (decommission) stock item but keep history,inventory,should,yes,no,blocked while reserved or picked up
+Buffer time before and after rentals per product,availability,must,yes,no,calendar time; respects business hours; not applied to existing orders on change
+Real-time availability per product for a period,availability,must,yes,no,core promise: prevent double bookings
+Availability breakdown popover (available expected this order other orders shortage downtime),availability,should,yes,no,
+Allow shortage per product with a shortage limit,availability,should,yes,no,overbooking; gated to Scale plan on the original
+Orders with shortage tab,orders,should,yes,no,
+Confirm shortage when reserving within the limit,orders,should,yes,no,warning within limit; blocking error over limit
+Schedule downtime (maintenance repair missing) per stock item or quantity,availability,should,yes,no,statuses scheduled started ended cancelled; Grow plan
+Availability calendar day week month with order bars by status,calendar,must,yes,no,grey draft blue reserved orange picked up green returned dark grey downtime
+Check availability for a date range on the calendar,calendar,should,yes,no,negative numbers show shortages
+Calendar filter by location and search by product identifier tag,calendar,could,yes,no,
+iCal feed subscription of the calendar,calendar,could,yes,no,
+Dashboard: today's pickups and returns with late ones flagged,dashboard,must,yes,no,custom date range too
+Dashboard notes for the day,dashboard,could,yes,no,
+Create manual order (customer period products),orders,must,yes,no,New status until saved; + button returns to unsaved order
+Order statuses new draft reserved picked up returned archived canceled,orders,must,yes,no,API: started=picked up stopped=returned
+Save as draft without holding stock,orders,must,yes,no,
+Reserve order to block availability,orders,must,yes,no,assigns order number
+Add product to order showing quantity available for the period,orders,must,yes,no,
+Specify stock items on an order now or at pickup,orders,must,yes,no,docs recommend specifying late to avoid fragmenting availability
+Pick up items (all or partial) with stock item assignment,orders,must,yes,no,partial gives Mixed status
+Return items (all or partial),orders,must,yes,no,
+Retain part of deposit at return with a reason,orders,must,yes,no,kept amount becomes a line incl. tax
+Revert an order status,orders,should,yes,no,permission-limited
+Duplicate an order,orders,should,yes,no,delivery rate not copied
+Cancel an order (irreversible),orders,must,yes,no,
+Archive order and filter archived,orders,should,yes,no,
+Extend or change order dates with availability re-check,orders,must,yes,no,
+Replace items on an order mid-rental,orders,could,yes,no,remove and re-add then charge or refund difference
+Orders list with status tabs search and filters,orders,must,yes,no,search by number name email address tags custom fields
+Order payment status (paid partially paid overpaid due process deposit),payments,must,yes,no,
+Order and line internal notes,orders,could,yes,no,
+Packing slips / pull sheets,orders,could,yes,no,
+Activity log per order,orders,could,yes,no,Scale plan
+Pickup or delivery choice per order,orders,should,yes,no,delivery is a paid add-on app on the original
+Multiple locations with pickup and return location per order,locations,could,yes,no,Scale add-on on the original
+Flat fee pricing per minute hour day week month (rounds up),pricing,must,yes,no,price_type simple
+Fixed price per order regardless of duration,pricing,must,yes,no,price_type fixed
+Tiered pricing structure per product (tiles + extra period rate),pricing,should,yes,no,price_type private_structure
+Reusable pricing structure templates as multipliers of a base price,pricing,should,yes,no,price_type structure; bulk apply
+Advanced pricing rulesets (seasonal date ranges weekdays free pickup/return day),pricing,could,yes,no,stacking options; Grow+ on the original
+Price per variation,pricing,should,yes,no,
+Disable pricing globally (free lending),pricing,could,yes,no,
+Price display mode in store (charge period order period base price),pricing,could,yes,no,
+Taxes: tax rates categories inclusive or exclusive display,pricing,must,yes,no,tax rounding article; customer tax profiles
+Customer-level tax profile (e.g. exempt),customers,should,yes,no,
+Security deposit methods (none % of order % of product deposit value fixed),pricing,must,yes,no,only rental items count toward % of order
+Per-customer default deposit override,customers,should,yes,no,
+Order discount percentage and per-customer default discount,pricing,should,yes,no,
+Coupon codes (percentage or fixed),pricing,should,yes,no,
+Advanced coupon rules (eligible items minimum spend max redemptions dates one per customer),pricing,could,yes,no,
+Customers list with filters and configurable columns,customers,must,yes,no,
+Customer detail with order history and revenue stats,customers,must,yes,no,
+Person or company customer type,customers,should,yes,no,legal_type
+Multiple addresses per customer,customers,could,yes,no,
+Marketing email consent flag,customers,could,yes,no,
+Duplicate customer merge suggestion,customers,could,yes,no,online orders create a customer each time unless accounts are on
+Hosted booking page with products and collections,storefront,must,yes,no,live in 20 minutes; Set live toggle
+Product page with images price label variations quantity,storefront,must,yes,no,
+Period picker: pickup or delivery then location then dates then times,storefront,must,yes,no,
+Rental period modes: free dates and times / fixed durations / fixed time slots,storefront,must,yes,no,
+Time picker increments 15 30 60 minutes,storefront,should,yes,no,
+Default order times when time selection is off,storefront,should,yes,no,pre-fill option for back office and/or website
+Operating hours restrict pickup and return times,storefront,must,yes,no,24/7 until set
+Away mode blackout periods,storefront,should,yes,no,applies to all products
+Minimum booking notice,storefront,should,yes,no,
+Apply rental period rules to manual orders (overridable by permission),storefront,could,yes,no,
+Availability calendar on product and cart (available partial unavailable),storefront,must,yes,no,
+Show or hide availability and hide quantities,storefront,should,yes,no,
+Checkout only when all cart items are available,storefront,must,yes,no,
+Cart with lines totals deposit and service toggles,storefront,must,yes,no,
+Cross-sell recommendations in store,storefront,could,yes,no,
+Checkout form: name email + custom fields headings text images reorderable,storefront,must,yes,no,
+Address validation at checkout,storefront,could,yes,no,
+Terms and conditions checkbox at checkout,storefront,should,yes,no,
+Checkout payment options: full / down payment % / deposit only / none,payments,must,yes,no,
+Add security deposit at checkout toggle,payments,should,yes,no,
+Pay later option with custom label and terms,payments,should,yes,no,
+Online order auto-reserved when availability is on,storefront,must,yes,no,
+Order request (wishlist) mode: availability off creates draft orders,storefront,should,yes,no,
+Customer accounts (log in at checkout so discounts apply),storefront,could,yes,no,
+Coupon field in cart or checkout,storefront,should,yes,no,
+Brand colour and logo on booking page,storefront,must,yes,no,
+Translations / custom wording for all customer-facing text,storefront,should,yes,no,10+ backend languages on the original
+Custom domain for booking page,storefront,should,yes,no,
+Embed store on an existing website (WordPress Shopify etc.),storefront,could,yes,no,script-based integration on the original
+Order confirmation page,storefront,must,yes,no,
+Stripe connection for card payments,payments,must,yes,no,Stripe Connect with the merchant's own account
+Charge card from back office (new or stored card),payments,should,yes,no,
+Payment link / payment request with copyable URL,payments,must,yes,no,can be cancelled
+Authorize card hold and capture later (once),payments,should,yes,no,hold expiry per card brand from Stripe
+Record manual payment (cash bank cheque other),payments,must,yes,no,deletable; Stripe ones are not
+Refund payment and refund or keep deposit,payments,must,yes,no,Process deposit button after return
+Strong Customer Authentication email for EU payments,payments,could,yes,no,
+Other payment providers (PayPal Square Adyen Mollie Mercado Pago Teya),payments,could,yes,no,most are beta apps on the original
+Webshop confirmation email to customer (with pickup QR code),notifications,must,yes,no,
+Manual email templates with variables sent from an order,notifications,should,yes,no,Markdown + {{variables}} + conditional blocks
+Editable system email templates,notifications,should,yes,no,
+BCC all outgoing emails,notifications,could,yes,no,
+Custom sender address,notifications,could,yes,no,
+Email delivery tracking per order,notifications,could,yes,no,
+Browser notifications for new orders,notifications,could,yes,no,
+Reports: availability fulfillment product performance ROI revenue customer coupon,reports,could,yes,no,
+Exports of customers orders inventory,reports,could,yes,no,
+Public REST API and webhooks,platform,could,yes,no,Grow plan on the original
+Two-factor authentication (enforce for all users),security,should,yes,no,enforce option is Scale only
+Remove powered-by branding,storefront,could,yes,no,
+Quotes contracts invoices generated from orders,documents,could,yes,skip,outside the chosen slice (core loop without documents)
+E-signatures on quotes and contracts,documents,could,yes,skip,outside the chosen slice
+Barcode and QR code generation and scanning,inventory,could,yes,skip,outside the chosen slice; add-on on the original
+Website builder with 80+ templates,storefront,could,yes,skip,separate paid product; outside the chosen slice
+Mobile Point of Sale apps and Tap to Pay,mobile,could,yes,skip,web only was chosen
+Deliveries app (mileage rates routing),orders,could,yes,skip,paid add-on; outside the chosen slice
+Bo AI rental assistant,platform,could,yes,skip,outside the chosen slice
+App store of third-party integrations (Zapier Xero Mailchimp GA4 Meta Pixel etc.),integrations,could,yes,skip,their partner network and listings are not part of the product you can rebuild
+Booqable customer stories templates and brand,marketing,could,yes,skip,content and brand they own
