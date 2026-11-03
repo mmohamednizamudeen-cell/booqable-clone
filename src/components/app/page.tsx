@@ -24,7 +24,7 @@ export function Page({
     <>
       <PageHeader title={title} breadcrumb={breadcrumb} search={search} actions={actions} onOpenMenu={openMenu} />
       <main id="main" className="min-h-0 flex-1 overflow-y-auto">
-        {flush ? children : <div className="mx-auto grid max-w-[var(--layout-content-max)] gap-6 p-4 md:p-6">{children}</div>}
+        {flush ? children : <div className="mx-auto grid max-w-[var(--layout-content-max)] grid-cols-[minmax(0,1fr)] gap-6 p-4 md:p-6">{children}</div>}
       </main>
     </>
   );

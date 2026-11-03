@@ -15,7 +15,7 @@ export default async function ShopPage({ params }: { params: Promise<{ slug: str
         <p className="text-sm text-body">Pick an item, choose your dates, and we hold it for you.</p>
       </div>
       {products.length ? (
-        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {products.map((p) => (
             <li key={p.id}>
               <Link href={`/shop/${slug}/p/${p.slug}`} className="group block h-full rounded-md border border-line bg-surface p-5 hover:border-line-input">

@@ -6,81 +6,81 @@ Import products from CSV,onboarding,should,yes,no,help: importing your data
 Import customers from CSV,onboarding,could,yes,no,
 Staff users with separate logins,team,should,yes,no,Start plan has 1 user; Grow +5; Scale +10
 User permissions (revert orders cancel orders manage stock),team,should,yes,no,API permissions cancel_orders and revert_orders
-Rental product tracked individually (stock items with identifiers),inventory,must,yes,no,tracking_type trackable; cannot change after create
-Rental product tracked in quantities (bulk),inventory,must,yes,no,tracking_type bulk
-Service products (optional extras toggled in cart),inventory,should,yes,no,product_type service; untracked
-Sales items (sold not returned),inventory,should,yes,no,product_type sales_item; fixed price only
-Custom one-off lines on an order (incl. negative amounts),orders,must,yes,no,line_type charge
-Product name SKU description images (up to 3),inventory,must,yes,no,
+Rental product tracked individually (stock items with identifiers),inventory,must,yes,yes,S12/S13; tracking fixed after create (enforced). Original: tracking_type trackable; cannot change after create
+Rental product tracked in quantities (bulk),inventory,must,yes,yes,S12/S13. Original: tracking_type bulk
+Service products (optional extras toggled in cart),inventory,should,yes,partial,can be created and booked from the back office; no cart toggle yet. Original: product_type service; untracked
+Sales items (sold not returned),inventory,should,yes,partial,can be created with a fixed price; no special handling yet. Original: product_type sales_item; fixed price only
+Custom one-off lines on an order (incl. negative amounts),orders,must,yes,yes,S05. Original: line_type charge
+Product name SKU description images (up to 3),inventory,must,yes,partial,"name, SKU, description; no images yet"
 Product variations by property (size colour),inventory,should,yes,no,cannot be undone once enabled
 Bundles with contents quantities and per-item discount,inventory,should,yes,no,availability = least available content; Any variation option
 Collections to group products in the store,storefront,must,yes,no,shown as sidebar on booking page
 Tags on products orders customers,inventory,could,yes,no,
 Custom fields on products orders customers,inventory,should,yes,no,Properties resource; also used at checkout
-Add regular stock with purchase cost and date,inventory,must,yes,no,cost feeds ROI reports
-Expected stock (available from a future date),inventory,should,yes,no,
-Temporary stock for sub-rentals (available from/till),inventory,should,yes,no,TMP- prefix on identifiers
-Stock item status (in stock out overdue expected expired in downtime),inventory,must,yes,no,green/orange dots in inventory panel
-Delete (decommission) stock item but keep history,inventory,should,yes,no,blocked while reserved or picked up
-Buffer time before and after rentals per product,availability,must,yes,no,calendar time; respects business hours; not applied to existing orders on change
-Real-time availability per product for a period,availability,must,yes,no,core promise: prevent double bookings
+Add regular stock with purchase cost and date,inventory,must,yes,partial,regular stock yes; purchase cost and date not captured yet. Original: cost feeds ROI reports
+Expected stock (available from a future date),inventory,should,yes,yes,Add stock > Arriving later
+Temporary stock for sub-rentals (available from/till),inventory,should,yes,yes,Add stock > Temporary. Original: TMP- prefix on identifiers
+Stock item status (in stock out overdue expected expired in downtime),inventory,must,yes,partial,"in stock, out, overdue, arriving, ended; downtime not built. Original: green/orange dots in inventory panel"
+Delete (decommission) stock item but keep history,inventory,should,yes,yes,refused while the unit is on a current or future booking. Original: blocked while reserved or picked up
+Buffer time before and after rentals per product,availability,must,yes,yes,"baked in at booking time, like the original. Original: calendar time; respects business hours; not applied to existing orders on change"
+Real-time availability per product for a period,availability,must,yes,yes,engine shared by back office and store; 32 unit tests. Original: core promise: prevent double bookings
 Availability breakdown popover (available expected this order other orders shortage downtime),availability,should,yes,no,
-Allow shortage per product with a shortage limit,availability,should,yes,no,overbooking; gated to Scale plan on the original
-Orders with shortage tab,orders,should,yes,no,
-Confirm shortage when reserving within the limit,orders,should,yes,no,warning within limit; blocking error over limit
+Allow shortage per product with a shortage limit,availability,should,yes,yes,S16 settings. Original: overbooking; gated to Scale plan on the original
+Orders with shortage tab,orders,should,yes,yes,S04 Short on stock
+Confirm shortage when reserving within the limit,orders,should,yes,yes,warning dialog; blocking over the limit. Original: warning within limit; blocking error over limit
 Schedule downtime (maintenance repair missing) per stock item or quantity,availability,should,yes,no,statuses scheduled started ended cancelled; Grow plan
 Availability calendar day week month with order bars by status,calendar,must,yes,no,grey draft blue reserved orange picked up green returned dark grey downtime
 Check availability for a date range on the calendar,calendar,should,yes,no,negative numbers show shortages
 Calendar filter by location and search by product identifier tag,calendar,could,yes,no,
 iCal feed subscription of the calendar,calendar,could,yes,no,
-Dashboard: today's pickups and returns with late ones flagged,dashboard,must,yes,no,custom date range too
+Dashboard: today's pickups and returns with late ones flagged,dashboard,must,yes,yes,S03; today or next 7 days. Original: custom date range too
 Dashboard notes for the day,dashboard,could,yes,no,
-Create manual order (customer period products),orders,must,yes,no,New status until saved; + button returns to unsaved order
-Order statuses new draft reserved picked up returned archived canceled,orders,must,yes,no,API: started=picked up stopped=returned
-Save as draft without holding stock,orders,must,yes,no,
-Reserve order to block availability,orders,must,yes,no,assigns order number
-Add product to order showing quantity available for the period,orders,must,yes,no,
-Specify stock items on an order now or at pickup,orders,must,yes,no,docs recommend specifying late to avoid fragmenting availability
-Pick up items (all or partial) with stock item assignment,orders,must,yes,no,partial gives Mixed status
-Return items (all or partial),orders,must,yes,no,
-Retain part of deposit at return with a reason,orders,must,yes,no,kept amount becomes a line incl. tax
-Revert an order status,orders,should,yes,no,permission-limited
+Create manual order (customer period products),orders,must,yes,yes,S05; unsaved booking reused like the original. Original: New status until saved; + button returns to unsaved order
+Order statuses new draft reserved picked up returned archived canceled,orders,must,yes,yes,plus partly out / partly back. Original: API: started=picked up stopped=returned
+Save as draft without holding stock,orders,must,yes,yes,
+Reserve order to block availability,orders,must,yes,yes,number assigned on save or reserve. Original: assigns order number
+Add product to order showing quantity available for the period,orders,must,yes,yes,free count in search results; shortage per line
+Specify stock items on an order now or at pickup,orders,must,yes,partial,chosen at pickup in the dialog; assigning ahead exists in the data layer but has no UI. Original: docs recommend specifying late to avoid fragmenting availability
+Pick up items (all or partial) with stock item assignment,orders,must,yes,yes,S07; refuses a unit still out on another booking. Original: partial gives Mixed status
+Return items (all or partial),orders,must,yes,yes,S08
+Retain part of deposit at return with a reason,orders,must,yes,yes,S08. Original: kept amount becomes a line incl. tax
+Revert an order status,orders,should,yes,yes,"reserved to draft, archived to returned; no permission check yet. Original: permission-limited"
 Duplicate an order,orders,should,yes,no,delivery rate not copied
-Cancel an order (irreversible),orders,must,yes,no,
-Archive order and filter archived,orders,should,yes,no,
-Extend or change order dates with availability re-check,orders,must,yes,no,
+Cancel an order (irreversible),orders,must,yes,yes,refused while items are out
+Archive order and filter archived,orders,should,yes,partial,archive yes; no archived filter yet
+Extend or change order dates with availability re-check,orders,must,yes,yes,rolls back if the new dates are short
 Replace items on an order mid-rental,orders,could,yes,no,remove and re-add then charge or refund difference
-Orders list with status tabs search and filters,orders,must,yes,no,search by number name email address tags custom fields
-Order payment status (paid partially paid overpaid due process deposit),payments,must,yes,no,
+Orders list with status tabs search and filters,orders,must,yes,partial,tabs and search; no filter panel yet. Original: search by number name email address tags custom fields
+Order payment status (paid partially paid overpaid due process deposit),payments,must,yes,partial,due / paid only until payments exist
 Order and line internal notes,orders,could,yes,no,
 Packing slips / pull sheets,orders,could,yes,no,
 Activity log per order,orders,could,yes,no,Scale plan
 Pickup or delivery choice per order,orders,should,yes,no,delivery is a paid add-on app on the original
 Multiple locations with pickup and return location per order,locations,could,yes,no,Scale add-on on the original
-Flat fee pricing per minute hour day week month (rounds up),pricing,must,yes,no,price_type simple
-Fixed price per order regardless of duration,pricing,must,yes,no,price_type fixed
+Flat fee pricing per minute hour day week month (rounds up),pricing,must,yes,yes,days counted in the org's zone across DST. Original: price_type simple
+Fixed price per order regardless of duration,pricing,must,yes,yes,price_type fixed
 Tiered pricing structure per product (tiles + extra period rate),pricing,should,yes,no,price_type private_structure
 Reusable pricing structure templates as multipliers of a base price,pricing,should,yes,no,price_type structure; bulk apply
 Advanced pricing rulesets (seasonal date ranges weekdays free pickup/return day),pricing,could,yes,no,stacking options; Grow+ on the original
 Price per variation,pricing,should,yes,no,
 Disable pricing globally (free lending),pricing,could,yes,no,
 Price display mode in store (charge period order period base price),pricing,could,yes,no,
-Taxes: tax rates categories inclusive or exclusive display,pricing,must,yes,no,tax rounding article; customer tax profiles
+Taxes: tax rates categories inclusive or exclusive display,pricing,must,yes,partial,"one org rate, inclusive or exclusive in the engine; no tax profiles or settings UI. Original: tax rounding article; customer tax profiles"
 Customer-level tax profile (e.g. exempt),customers,should,yes,no,
-Security deposit methods (none % of order % of product deposit value fixed),pricing,must,yes,no,only rental items count toward % of order
+Security deposit methods (none % of order % of product deposit value fixed),pricing,must,yes,partial,all four in the engine and tests; org setting not editable in the UI yet. Original: only rental items count toward % of order
 Per-customer default deposit override,customers,should,yes,no,
 Order discount percentage and per-customer default discount,pricing,should,yes,no,
 Coupon codes (percentage or fixed),pricing,should,yes,no,
 Advanced coupon rules (eligible items minimum spend max redemptions dates one per customer),pricing,could,yes,no,
-Customers list with filters and configurable columns,customers,must,yes,no,
-Customer detail with order history and revenue stats,customers,must,yes,no,
+Customers list with filters and configurable columns,customers,must,yes,partial,search and table; no filters or column picker
+Customer detail with order history and revenue stats,customers,must,yes,partial,contact and bookings; no revenue stats
 Person or company customer type,customers,should,yes,no,legal_type
 Multiple addresses per customer,customers,could,yes,no,
 Marketing email consent flag,customers,could,yes,no,
 Duplicate customer merge suggestion,customers,could,yes,no,online orders create a customer each time unless accounts are on
-Hosted booking page with products and collections,storefront,must,yes,no,live in 20 minutes; Set live toggle
-Product page with images price label variations quantity,storefront,must,yes,no,
-Period picker: pickup or delivery then location then dates then times,storefront,must,yes,no,
+Hosted booking page with products and collections,storefront,must,yes,partial,"/shop/demo; no collections, no go-live toggle in the UI. Original: live in 20 minutes; Set live toggle"
+Product page with images price label variations quantity,storefront,must,yes,partial,price and quantity; no images or variations
+Period picker: pickup or delivery then location then dates then times,storefront,must,yes,partial,dates on the calendar plus times; no pickup/delivery or location step
 Rental period modes: free dates and times / fixed durations / fixed time slots,storefront,must,yes,no,
 Time picker increments 15 30 60 minutes,storefront,should,yes,no,
 Default order times when time selection is off,storefront,should,yes,no,pre-fill option for back office and/or website
@@ -88,18 +88,18 @@ Operating hours restrict pickup and return times,storefront,must,yes,no,24/7 unt
 Away mode blackout periods,storefront,should,yes,no,applies to all products
 Minimum booking notice,storefront,should,yes,no,
 Apply rental period rules to manual orders (overridable by permission),storefront,could,yes,no,
-Availability calendar on product and cart (available partial unavailable),storefront,must,yes,no,
+Availability calendar on product and cart (available partial unavailable),storefront,must,yes,partial,on the product page; not on the cart
 Show or hide availability and hide quantities,storefront,should,yes,no,
-Checkout only when all cart items are available,storefront,must,yes,no,
-Cart with lines totals deposit and service toggles,storefront,must,yes,no,
+Checkout only when all cart items are available,storefront,must,yes,yes,re-checked atomically at checkout; race tested
+Cart with lines totals deposit and service toggles,storefront,must,yes,partial,"lines, dates, totals, deposit; no service toggles"
 Cross-sell recommendations in store,storefront,could,yes,no,
-Checkout form: name email + custom fields headings text images reorderable,storefront,must,yes,no,
+Checkout form: name email + custom fields headings text images reorderable,storefront,must,yes,partial,"name, email, phone; no custom fields or builder"
 Address validation at checkout,storefront,could,yes,no,
 Terms and conditions checkbox at checkout,storefront,should,yes,no,
 Checkout payment options: full / down payment % / deposit only / none,payments,must,yes,no,
 Add security deposit at checkout toggle,payments,should,yes,no,
 Pay later option with custom label and terms,payments,should,yes,no,
-Online order auto-reserved when availability is on,storefront,must,yes,no,
+Online order auto-reserved when availability is on,storefront,must,yes,yes,drafts when availability is off (setting not in UI yet)
 Order request (wishlist) mode: availability off creates draft orders,storefront,should,yes,no,
 Customer accounts (log in at checkout so discounts apply),storefront,could,yes,no,
 Coupon field in cart or checkout,storefront,should,yes,no,
@@ -107,7 +107,7 @@ Brand colour and logo on booking page,storefront,must,yes,no,
 Translations / custom wording for all customer-facing text,storefront,should,yes,no,10+ backend languages on the original
 Custom domain for booking page,storefront,should,yes,no,
 Embed store on an existing website (WordPress Shopify etc.),storefront,could,yes,no,script-based integration on the original
-Order confirmation page,storefront,must,yes,no,
+Order confirmation page,storefront,must,yes,yes,S33
 Stripe connection for card payments,payments,must,yes,no,Stripe Connect with the merchant's own account
 Charge card from back office (new or stored card),payments,should,yes,no,
 Payment link / payment request with copyable URL,payments,must,yes,no,can be cancelled
@@ -132,7 +132,7 @@ Email confirmation code on sign-in from a new device,security,should,yes,no,on b
 IP address allowlist for the account,security,could,yes,no,premium on the original
 SAML single sign-on (Okta Google Workspace),security,could,yes,no,premium on the original
 Online bookings overview: channel cards with live/offline status,storefront,should,yes,no,seen in trial S24
-Bookings list tabs Upcoming Late With shortage plus metric cards,orders,should,yes,no,seen in trial S04
+Bookings list tabs Upcoming Late With shortage plus metric cards,orders,should,yes,yes,S04. Original: seen in trial S04
 Default pickup location and delivery countries,storefront,could,yes,no,seen in trial S24c
 Background tasks page for bulk operations and exports,platform,could,yes,no,seen in trial S37
 Quotes contracts invoices generated from orders,documents,could,yes,skip,outside the chosen slice (core loop without documents)

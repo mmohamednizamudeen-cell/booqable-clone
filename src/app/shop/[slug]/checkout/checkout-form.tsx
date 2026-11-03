@@ -21,7 +21,11 @@ export function CheckoutForm({ slug, canCheckout, problems }: { slug: string; ca
     setError(null);
     start(async () => {
       const r = await shopCheckoutAction(slug, { name, email, phone });
-      if (!r.ok) return setError(r.message);
+      if (!r.ok) {
+        setError(r.message);
+        if (r.code === "unavailable") router.refresh(); // show what is no longer free
+        return;
+      }
       router.push(`/shop/${slug}/order/${r.data.orderToken}`);
     });
   };

@@ -29,7 +29,7 @@ export default async function ShopLayout({ children, params }: { children: React
           </Link>
         </div>
       </header>
-      <main id="main" className="mx-auto grid max-w-[var(--layout-content-max)] gap-6 p-4 md:p-6">{children}</main>
+      <main id="main" className="mx-auto grid max-w-[var(--layout-content-max)] grid-cols-[minmax(0,1fr)] gap-6 p-4 md:p-6">{children}</main>
     </div>
   );
 }

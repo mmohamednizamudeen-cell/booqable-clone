@@ -20,7 +20,7 @@ export function BookPanel({
   product: { id: string; name: string; rental: boolean };
   today: string;
   initialMonth: Record<string, DayStatus | "available" | "partial" | "unavailable">;
-  period: { start: string; end: string } | null;
+  period: { start: string; end: string; label: string } | null;
   defaults: { pickup: string; ret: string };
 }) {
   const router = useRouter();
@@ -58,7 +58,7 @@ export function BookPanel({
         {product.rental ? (
           locked ? (
             <p className="text-sm text-body">
-              Your cart is for {period!.start.replace("T", " ")} to {period!.end.replace("T", " ")}. Change the dates in the cart.
+              Your cart is for {period!.label}. You can change the dates in the cart.
             </p>
           ) : (
             <>

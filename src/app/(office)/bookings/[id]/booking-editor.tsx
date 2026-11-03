@@ -267,7 +267,7 @@ function PeriodCard({ order, timeZone, defaults, disabled }: { order: OrderView;
     <Card>
       {confirmDialog}
       <CardHeader title="Rental period" description={order.startsAt === null ? "Pick dates to see what is free." : undefined} />
-      <CardBody className="grid gap-4 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2">
+      <CardBody className="grid gap-4">
         <Field label="Pickup" hint={outAlready ? "Items are out, so only the return can move." : undefined}>
           {(p) => <Input {...p} type="datetime-local" step={900} value={start} onChange={(e) => setStart(e.target.value)} disabled={disabled || outAlready} />}
         </Field>

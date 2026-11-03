@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ChevronLeft, Package } from "lucide-react";
 import { cartView, getOrgBySlug, getProductBySlug, monthAvailability } from "@/lib/data/store";
 import { currentCartId } from "@/app/actions";
-import { formatMoney, toZonedInput } from "@/lib/time";
+import { formatDateTime, formatMoney, toZonedInput } from "@/lib/time";
 import { BookPanel } from "./book-panel";
 
 export default async function ShopProductPage({ params }: { params: Promise<{ slug: string; product: string }> }) {
@@ -16,7 +16,7 @@ export default async function ShopProductPage({ params }: { params: Promise<{ sl
   const month = product.productType === "rental" ? await monthAvailability(product.id, y, m) : {};
   const id = await currentCartId();
   const cart = id ? await cartView(id) : null;
-  const period = cart?.cart.startsAt != null && cart.cart.stopsAt != null ? { start: toZonedInput(cart.cart.startsAt, org.timeZone), end: toZonedInput(cart.cart.stopsAt, org.timeZone) } : null;
+  const period = cart?.cart.startsAt != null && cart.cart.stopsAt != null ? { start: toZonedInput(cart.cart.startsAt, org.timeZone), end: toZonedInput(cart.cart.stopsAt, org.timeZone), label: `${formatDateTime(cart.cart.startsAt, org.timeZone)} to ${formatDateTime(cart.cart.stopsAt, org.timeZone)}` } : null;
   return (
     <>
       <Link href={`/shop/${slug}`} className="inline-flex items-center gap-1 text-sm text-link underline-offset-4 hover:underline">
