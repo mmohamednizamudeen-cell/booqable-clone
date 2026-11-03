@@ -11,7 +11,8 @@ Method: public pages only. Marketing site, pricing page, 43 help center
 articles, the public API reference, and the terms of service. No account was
 used, no app code or network calls were read. Every screen below is inferred
 from documentation. **No screen has been seen yet**, so the "states" column
-lists what the docs describe, not what was observed. See "Gaps" at the end.
+lists what the docs describe, not what was observed. Five screens have since
+been seen in the user's trial: see "Observed in the user's trial account".
 
 ## Sources
 
@@ -308,7 +309,7 @@ Two things in the model matter more than the rest:
 
 ## Feature matrix
 
-See `features.csv`. Must: 50, should: 46, could: 33, skip: 9.
+See `features.csv`. Must: 50, should: 47, could: 34, skip: 9.
 
 ## Out of scope (cannot or should not be cloned)
 
@@ -347,12 +348,44 @@ Size: **L** (about a quarter for a small team to reach the must-haves, with the
 availability engine first). Not XL, because the slice excludes documents,
 barcodes, the builder and mobile.
 
+## Observed in the user's trial account (2026-11-03)
+
+Screenshots from the user's own 14-day trial, 1440px wide, in
+`replica/screens/`. Reference only, never shipped.
+
+| file | screen | what it confirms or adds |
+| --- | --- | --- |
+| S02-setup-home.png | S02 | Home is an onboarding page: AI assistant prompt with 4 suggestion chips, then a 4-step guide in tabs (Add your products 0/4: tax profile, rental product, pricing, security deposits; Set up your online store; Connect apps; Accept payments), each step expandable with a CTA and a video, then mobile app promo and help links. Sidebar shows "Continue setup 0/11 completed". |
+| S03-dashboard-empty.png | S03 | Two cards side by side, "Going out" and "Coming back", each with a date button (Today), Run report on the first, "No results" empty state, footer links View late / View all. Right side panel "Latest notes", toggled by a header button. |
+| S05-order-editor-new.png | S05 | Breadcrumb "Bookings > New booking", status pill "new", Save as draft + overflow menu (no Reserve until a period is set, matching the docs). Cards: Client (avatar initials, name, email, remove), Information (custom fields with empty state and Add field), Pickup (billing address, From / Until date + time, Clear). Product search with inline results and per-row Add product, barcode button, Add custom line. Totals: Subtotal, Add a discount, Add a coupon, Total discount, Total incl. taxes, Security deposit with method note. Footer count "1 product / 1 item". Right sidebar of collapsible sections: Email (send, history), Documents (waiver, proposal, pull sheet), Invoices (pro forma auto-created), Payments (Payment due badge, Paid, Due, New payment), Tags. |
+| S11-inventory-list.png | S11 | Tabs Products / Bundles / Collections / Downtime. Split button Add product with a dropdown. Left filter panel: Product type, Pricing structure template, Price ruleset; Import and Export at its foot. Table: checkbox, Name with thumbnail, Product type, Pricing ("Flat fee 50.00 per day"), Online store visibility button, SKU, Tags, column picker. Bulk Actions menu with "Select all". |
+| S19-customers-list.png | S19 | Same list pattern as S11: search in header, primary Add button, left filters with counts (Client type, Marketing emails, Customer created, Latest order), Import / Export, Actions, table columns #, Name, Email, Created at, Latest order, Balance due, column picker. |
+
+New findings:
+
+- **Navigation** (left sidebar, collapsible): Continue setup, New booking,
+  Dashboard, Calendar, Bookings, Clients, Inventory, Coupons, Documents,
+  Online store, Apps, Reports, Ask Bo, Scan a barcode, Help, Settings, user.
+- **The account uses renamed labels** ("Bookings", "Clients") where the help
+  center says Orders and Customers. That is the "personalize account labels"
+  setting (help 6501376): the business picks its own nouns. Added to the
+  feature matrix.
+- **One list pattern** serves Inventory, Clients and probably Bookings:
+  header search + primary button, filter panel with Import/Export, bulk
+  Actions, sortable table, column picker. Build it once.
+- **The order editor is one page of cards plus a sidebar**, not a wizard.
+  The sidebar is where documents and payments live.
+- A pro forma invoice is created automatically with the order. Documents
+  stay out of the slice, but the clone's order page needs room for them.
+
 ## Gaps to close before /replica-design
 
-- **No screenshots yet.** `replica/screens/` is empty. Start Booqable's free
-  14-day trial (no card) in your own browser and capture S03-S34 at 1440x900
-  and 390x844, saved as `replica/screens/S05.png` and so on. Screenshots are
-  reference only and never ship.
+- **More screenshots.** Captured so far: S02, S03, S05 (new), S11, S19.
+  Still needed, at 1440 wide (and 390 for the storefront): S04 bookings list,
+  S05 in reserved / picked up states, S06 availability popover, S07 pickup,
+  S08 return, S09 payment dialog, S10 calendar, S12-S18 product and bundle
+  screens, S20 client detail, S22-S27 settings, and the storefront S28-S34.
+  Save as `replica/screens/S04-....png`.
 - The happy-path click counts are estimates from the docs. Count them in the
   trial.
 - Not read yet: the changelog, the roadmap, the tax articles, the API sections

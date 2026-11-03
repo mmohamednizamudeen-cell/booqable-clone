@@ -136,4 +136,6 @@ Mobile Point of Sale apps and Tap to Pay,mobile,could,yes,skip,web only was chos
 Deliveries app (mileage rates routing),orders,could,yes,skip,paid add-on; outside the chosen slice
 Bo AI rental assistant,platform,could,yes,skip,outside the chosen slice
 App store of third-party integrations (Zapier Xero Mailchimp GA4 Meta Pixel etc.),integrations,could,yes,skip,their partner network and listings are not part of the product you can rebuild
+Personalize account labels (e.g. Bookings instead of Orders),settings,could,yes,no,seen in trial nav; help 6501376
+Shared list layout: search filters import export bulk actions column picker,platform,should,yes,no,seen on Inventory and Clients
 Booqable customer stories templates and brand,marketing,could,yes,skip,content and brand they own
