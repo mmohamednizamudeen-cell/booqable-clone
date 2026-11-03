@@ -128,6 +128,10 @@ Exports of customers orders inventory,reports,could,yes,no,
 Public REST API and webhooks,platform,could,yes,no,Grow plan on the original
 Two-factor authentication (enforce for all users),security,should,yes,no,enforce option is Scale only
 Remove powered-by branding,storefront,could,yes,no,
+Email confirmation code on sign-in from a new device,security,should,yes,no,on by default in the trial
+IP address allowlist for the account,security,could,yes,no,premium on the original
+SAML single sign-on (Okta Google Workspace),security,could,yes,no,premium on the original
+Online bookings overview: channel cards with live/offline status,storefront,should,yes,no,seen in trial S24
 Quotes contracts invoices generated from orders,documents,could,yes,skip,outside the chosen slice (core loop without documents)
 E-signatures on quotes and contracts,documents,could,yes,skip,outside the chosen slice
 Barcode and QR code generation and scanning,inventory,could,yes,skip,outside the chosen slice; add-on on the original

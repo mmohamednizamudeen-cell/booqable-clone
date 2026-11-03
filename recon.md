@@ -88,7 +88,9 @@ Back office (B) and storefront (F). IDs are stable.
 | S25 | Settings: Checkout | Online bookings > Checkout | checkout rules | form builder (fields, headings, text, images, drag order), payment in checkout (full, down payment %, deposit only, none), add deposit, pay later label + terms, terms and conditions, back-to-website URL | |
 | S26 | Settings: Payments | Settings > Payment providers | connect Stripe | connect button, status | not connected, connected |
 | S27 | Settings: Emails | Settings > Emails | templates | system and manual templates, subject, Markdown body with variables, BCC | |
-| S28 | Store: catalogue | F: {company}.booqable.store | browse | logo, collections sidebar, product cards with price label and availability, cart button | empty store, filled |
+| S35 | Documents list (out of slice, reference) | B: Documents | invoices, waivers, proposals | tabs Invoices / Waivers / Proposals, metric cards (count, paid, revenue, due) with Hide metrics, filters (Finalized, Sent, Payment status with counts, Date range, Due date), Export, table with payment status pill | seen: one pro forma, payment due |
+| S36 | Settings: Security | Settings > Back office > Security | account protection | require 2FA for all users, email confirmation on new devices (on by default), IP allowlist, SAML single sign-on (ACS URL, entity ID, IdP URL + certificate, test link) | seen: defaults |
+| S28 | Store: catalogue | F: {company}.booqableshop.com (seen in trial) | browse | logo, collections sidebar, product cards with price label and availability, cart button | empty store, filled |
 | S29 | Store: product | F: product card | decide | images, description, price label, variation dropdown, quantity, Check availability calendar, Add to cart | available, partially available, unavailable |
 | S30 | Store: period picker | F: select dates / add to cart | choose rental period | pickup or delivery, location, address form, month calendar with availability colours, time picker | free dates, fixed durations, time slots, closed days, away period |
 | S31 | Store: cart | F: cart | review | lines, quantity, service toggles, cross-sell, coupon, totals, deposit, cart availability calendar | empty, filled, item unavailable (checkout blocked) |
@@ -309,7 +311,7 @@ Two things in the model matter more than the rest:
 
 ## Feature matrix
 
-See `features.csv`. Must: 50, should: 47, could: 34, skip: 9.
+See `features.csv`. Must: 50, should: 49, could: 36, skip: 9.
 
 ## Out of scope (cannot or should not be cloned)
 
@@ -320,12 +322,12 @@ See `features.csv`. Must: 50, should: 47, could: 34, skip: 9.
 - The app store and its partner integrations (Zapier, Xero, Mailchimp, GA4,
   Meta Pixel...): their partner network, not a feature.
 - Booqable's name, logo, templates, help content, customer stories and the
-  "booqable.store" domain pattern: theirs. Your storefront needs your own domain.
+  "booqableshop.com" subdomain pattern: theirs. Your storefront needs your own domain.
 - The 8,500-business installed base and 1,000+ reviews: theirs.
 
 ## Size
 
-Screens 34 (27 back office, 7 storefront), flows 12, entities about 20.
+Screens 36 (29 back office incl. 1 reference-only, 7 storefront), flows 12, entities about 20.
 
 Hard parts:
 1. **The availability engine.** Overlap queries across tracked items, bulk
@@ -378,13 +380,35 @@ New findings:
 - A pro forma invoice is created automatically with the order. Documents
   stay out of the slice, but the clone's order page needs room for them.
 
+Second batch (2026-11-03):
+
+| file | screen | what it confirms or adds |
+| --- | --- | --- |
+| S24-online-bookings-overview.png | S24 | Online bookings has three channels as cards with status pills: Booking page (Live, at `{slug}.booqableshop.com`, Connect a domain, View online store), Website builder (Offline), Website integration. Below: a 3-step "get started" list (selectable rental period, product availability, customize checkout) and link lists for branding, preview, custom domain. |
+| S24a-booking-page-settings.png | S24 | Booking page settings: Status card (Live pill, URL, View online store, Actions menu) and a Customize list: link your booking page, branding, store preferences, checkout. |
+| S24b-website-builder-out-of-slice.png | (skip) | Website builder: status Offline, themes (none installed), menus, pages, blog posts. Out of slice; kept for reference. |
+| S35-documents-invoices-list.png | S35 | Documents list (out of slice). Same list pattern as S11 / S19 plus metric cards. |
+| S36-settings-security.png | S36 | Security goes beyond 2FA: email confirmation on new devices, IP allowlist and SAML SSO (the last two marked as premium). |
+
+Settings navigation, as seen (two groups in a second sidebar):
+- Back office: General, Pricing, Taxes, Rental period, Payment providers,
+  Custom fields, Locations, Emails, Documents, Translations, Security,
+  Account and billing.
+- Online bookings: Overview, Booking page (Status, Customize), Website
+  builder, Website integration, Cross-sell, Preferences, Pickup and delivery,
+  Checkout.
+
+Settings pages share one layout: breadcrumb title, left column with a heading,
+explanation and "Learn more", right column with a card of controls. Build it once.
+
 ## Gaps to close before /replica-design
 
-- **More screenshots.** Captured so far: S02, S03, S05 (new), S11, S19.
+- **More screenshots.** Captured so far: S02, S03, S05 (new), S11, S19, S24, S35, S36.
   Still needed, at 1440 wide (and 390 for the storefront): S04 bookings list,
   S05 in reserved / picked up states, S06 availability popover, S07 pickup,
   S08 return, S09 payment dialog, S10 calendar, S12-S18 product and bundle
-  screens, S20 client detail, S22-S27 settings, and the storefront S28-S34.
+  screens, S20 client detail, S22, S23, S25, S26, S27 settings, and the storefront S28-S34
+  (open View online store; the public booking page is fine to capture).
   Save as `replica/screens/S04-....png`.
 - The happy-path click counts are estimates from the docs. Count them in the
   trial.
