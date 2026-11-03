@@ -185,3 +185,9 @@ export async function shopCheckoutAction(slug: string, details: { name: string; 
     return r;
   }, [`/shop/${slug}`, "/dashboard", "/bookings"]);
 }
+
+export async function shopMonthAction(productId: string, year: number, month: number, quantity = 1) {
+  const p = await store.getProduct(productId);
+  if (!p || !p.showInStore || p.productType !== "rental") return {};
+  return store.monthAvailability(productId, year, month, quantity);
+}

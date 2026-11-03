@@ -172,15 +172,21 @@ export function MonthCalendar({
   onChange,
   locale = "en",
   today = new Date(),
+  onMonthChange,
 }: {
   month: Date;
+  onMonthChange?: (firstOfMonth: Date) => void;
   status: (isoDate: string) => DayStatus;
   value?: { start?: string; end?: string };
   onChange?: (v: { start?: string; end?: string }) => void;
   locale?: string;
   today?: Date;
 }) {
-  const [view, setView] = useState(new Date(month.getFullYear(), month.getMonth(), 1));
+  const [view, setViewState] = useState(new Date(month.getFullYear(), month.getMonth(), 1));
+  const setView = (d: Date) => {
+    setViewState(d);
+    onMonthChange?.(d);
+  };
   const [focus, setFocus] = useState(iso(view));
   const grid = useRef<HTMLDivElement>(null);
 
