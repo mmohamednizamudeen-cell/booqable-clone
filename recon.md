@@ -90,6 +90,7 @@ Back office (B) and storefront (F). IDs are stable.
 | S27 | Settings: Emails | Settings > Emails | templates | system and manual templates, subject, Markdown body with variables, BCC | |
 | S35 | Documents list (out of slice, reference) | B: Documents | invoices, waivers, proposals | tabs Invoices / Waivers / Proposals, metric cards (count, paid, revenue, due) with Hide metrics, filters (Finalized, Sent, Payment status with counts, Date range, Due date), Export, table with payment status pill | seen: one pro forma, payment due |
 | S36 | Settings: Security | Settings > Back office > Security | account protection | require 2FA for all users, email confirmation on new devices (on by default), IP allowlist, SAML single sign-on (ACS URL, entity ID, IdP URL + certificate, test link) | seen: defaults |
+| S37 | Reports hub | B: Reports | pick a report | sections with explanation left and report cards right: Company performance, Product performance, Availability, Product fulfillment, Customer report, Coupons, Activity logs, Background tasks; each card Run report | seen |
 | S28 | Store: catalogue | F: {company}.booqableshop.com (seen in trial) | browse | logo, collections sidebar, product cards with price label and availability, cart button | empty store, filled |
 | S29 | Store: product | F: product card | decide | images, description, price label, variation dropdown, quantity, Check availability calendar, Add to cart | available, partially available, unavailable |
 | S30 | Store: period picker | F: select dates / add to cart | choose rental period | pickup or delivery, location, address form, month calendar with availability colours, time picker | free dates, fixed durations, time slots, closed days, away period |
@@ -311,7 +312,7 @@ Two things in the model matter more than the rest:
 
 ## Feature matrix
 
-See `features.csv`. Must: 50, should: 49, could: 36, skip: 9.
+See `features.csv`. Must: 50, should: 50, could: 38, skip: 9.
 
 ## Out of scope (cannot or should not be cloned)
 
@@ -327,7 +328,7 @@ See `features.csv`. Must: 50, should: 49, could: 36, skip: 9.
 
 ## Size
 
-Screens 36 (29 back office incl. 1 reference-only, 7 storefront), flows 12, entities about 20.
+Screens 37 (30 back office incl. 1 reference-only, 7 storefront), flows 12, entities about 20.
 
 Hard parts:
 1. **The availability engine.** Overlap queries across tracked items, bulk
@@ -401,9 +402,25 @@ Settings navigation, as seen (two groups in a second sidebar):
 Settings pages share one layout: breadcrumb title, left column with a heading,
 explanation and "Learn more", right column with a card of controls. Build it once.
 
+Third and final batch (2026-11-03). The user marked the screenshot set as final.
+
+| file | screen | what it confirms or adds |
+| --- | --- | --- |
+| S04-bookings-list-empty.png | S04 | Tabs All / Upcoming / Late / With shortage (default Upcoming). Metric cards Bookings, Items ordered, Revenue, Due (Hide metrics). Filters: Activity (select), Payment status with counts. Export. Primary "Add booking". Empty state "No results found for the selected filters". |
+| S24c-pickup-and-delivery-settings.png | S24 | Default pickup location (Automatic or a location); delivery upsell card (deliveries app); Delivery countries multi-select (empty = all); "Require delivery address when selecting a rental period" (forced on with multiple locations, so availability is shown for the location closest to the address). |
+| S37-reports-hub.png | S37 | Reports are a hub of cards grouped Business, Inventory, Customer, Coupon, Activity, Background tasks. Background tasks show results of bulk operations and generated files. |
+
+New findings: bookings are triaged by time (Upcoming, Late) rather than by
+status tabs; list metrics recompute with the filters; bulk operations and
+exports run as background tasks with a results page.
+
 ## Gaps to close before /replica-design
 
-- **More screenshots.** Captured so far: S02, S03, S05 (new), S11, S19, S24, S35, S36.
+- **More screenshots.** Captured (final set): S02, S03, S04, S05 (new), S11, S19, S24, S35, S36, S37.
+  The user has closed the screenshot pass; the screens below stay documented
+  from the help center only, and replica-design will design them from the
+  patterns already seen (list page, settings page, card + sidebar editor).
+  Not captured:
   Still needed, at 1440 wide (and 390 for the storefront): S04 bookings list,
   S05 in reserved / picked up states, S06 availability popover, S07 pickup,
   S08 return, S09 payment dialog, S10 calendar, S12-S18 product and bundle

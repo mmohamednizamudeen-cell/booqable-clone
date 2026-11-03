@@ -132,6 +132,9 @@ Email confirmation code on sign-in from a new device,security,should,yes,no,on b
 IP address allowlist for the account,security,could,yes,no,premium on the original
 SAML single sign-on (Okta Google Workspace),security,could,yes,no,premium on the original
 Online bookings overview: channel cards with live/offline status,storefront,should,yes,no,seen in trial S24
+Bookings list tabs Upcoming Late With shortage plus metric cards,orders,should,yes,no,seen in trial S04
+Default pickup location and delivery countries,storefront,could,yes,no,seen in trial S24c
+Background tasks page for bulk operations and exports,platform,could,yes,no,seen in trial S37
 Quotes contracts invoices generated from orders,documents,could,yes,skip,outside the chosen slice (core loop without documents)
 E-signatures on quotes and contracts,documents,could,yes,skip,outside the chosen slice
 Barcode and QR code generation and scanning,inventory,could,yes,skip,outside the chosen slice; add-on on the original
